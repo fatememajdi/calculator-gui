@@ -1,4 +1,5 @@
 
+
 import sys
 import os
 import math
@@ -25,6 +26,7 @@ class main(QWidget):
         self.start()
    
     def start(self):
+            self.ui.out.setText('0')
             self.ui.btn_0.clicked.connect(partial(self.setNumber,0))
             self.ui.btn_1.clicked.connect(partial(self.setNumber,1))
             self.ui.btn_2.clicked.connect(partial(self.setNumber,2))
@@ -50,13 +52,13 @@ class main(QWidget):
             self.ui.btn_log.clicked.connect(partial(self.setOperator2,'log'))
             self.ui.btn_factorial.clicked.connect(partial(self.setOperator2,'n!'))
             self.ui.btn_fractional.clicked.connect(partial(self.setOperator2,'1/x'))
-            self.ui.btn_absolute.clicked.connect(partial(self.setOperator2,'|x|'))
+            self.ui.btn_absolute.clicked.connect(partial(self.setOperator2,'-/+'))
             self.ui.btn_eq.clicked.connect(self.answer)
             self.ui.btn_c.clicked.connect(self.C)
     def P(self):
         self.point=True
     def C(self):
-        self.ui.out.setText(" ")
+        self.ui.out.setText("0")
         self.firstNum = 0
         self.secoundNum = 0
         self.Answer =  0
@@ -129,9 +131,8 @@ class main(QWidget):
                     self.firstNum=self.firstNum*i
             elif op=='1/x':
                 self.firstNum=1/self.firstNum
-            elif op=='|x|':
-                if self.firstNum<0:
-                    self.firstNum= -1*self.firstNum
+            elif op=='-/+':
+                self.firstNum= -1*self.firstNum
             self.ui.out.setText(str(self.firstNum))
         elif self.hadAnsr is False:
             if op=='√':
@@ -145,9 +146,8 @@ class main(QWidget):
                     self.secoundNum=self.secoundNum*i
             elif op=='1/x':
                 self.secoundNum=1/self.secoundNum
-            elif op=='|x|':
-                if self.secoundNum<0:
-                    self.secoundNum= -1*self.secoundNum
+            elif op=='-/+':
+                self.secoundNum= -1*self.secoundNum
             self.ui.out.setText(str(self.firstNum)+str(self.operator)+str(self.secoundNum))
         elif self.hadAnsr is True :
             if op=='√':
@@ -161,9 +161,8 @@ class main(QWidget):
                     self.Answer=self.Answer*i
             elif op=='1/x':
                 self.Answer=1/self.Answer
-            elif op=='|x|':
-                if self.Answer<0:
-                    self.Answer= -1*self.Answer
+            elif op=='-/+':
+                self.Answer= -1*self.Answer
             self.ui.out.setText(str(self.Answer))
 
     def answer(self):
